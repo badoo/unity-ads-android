@@ -1,6 +1,6 @@
 package com.unity3d.services.banners;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.ViewParent;
@@ -14,7 +14,6 @@ import com.unity3d.services.core.configuration.InitializationNotificationCenter;
 import com.unity3d.services.core.log.DeviceLog;
 import com.unity3d.services.core.misc.Utilities;
 import com.unity3d.services.core.misc.ViewUtilities;
-import com.unity3d.services.core.properties.ClientProperties;
 import com.unity3d.services.core.properties.SdkProperties;
 
 import org.json.JSONObject;
@@ -32,14 +31,13 @@ public class BannerView extends RelativeLayout {
 
 	// Public
 
-	public BannerView(Activity activity, String placementId, UnityBannerSize size) {
-		super(activity);
+	public BannerView(Context context, String placementId, UnityBannerSize size) {
+		super(context);
 		this.viewId = UUID.randomUUID().toString();
 		this.placementId = placementId;
 		this.size = size;
 		this.setupLayoutParams();
 		this.setBackgroundColor(Color.TRANSPARENT);
-		ClientProperties.setActivity(activity);
 		BannerViewCache.getInstance().addBannerView(this);
 	}
 
