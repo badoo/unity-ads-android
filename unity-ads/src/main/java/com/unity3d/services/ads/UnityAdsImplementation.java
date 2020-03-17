@@ -1,6 +1,8 @@
 package com.unity3d.services.ads;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.Display;
@@ -57,11 +59,24 @@ public final class UnityAdsImplementation {
 	 * @param enablePerPlacementLoad Set this flag to `YES` to disable automatic placement caching. When this is enabled, developer must call `load` on placements before calling show
 	 */
 	public static void initialize(final Activity activity, final String gameId, final IUnityAdsListener listener, final boolean testMode, final boolean enablePerPlacementLoad) {
+		initialize(activity, activity.getApplication(), gameId, listener, testMode, enablePerPlacementLoad);
+	}
+
+	/**
+	 * Initializes Unity Ads. Unity Ads should be initialized when app starts.
+	 * @param context Current context
+	 * @param application Current application
+	 * @param gameId Unique identifier for a game, given by Unity Ads admin tools or Unity editor
+	 * @param listener Listener for IUnityAdsListener callbacks
+	 * @param testMode If true, only test ads are shown
+	 * @param enablePerPlacementLoad Set this flag to `YES` to disable automatic placement caching. When this is enabled, developer must call `load` on placements before calling show
+	 */
+	public static void initialize(final Context context, final Application application, final String gameId, final IUnityAdsListener listener, final boolean testMode, final boolean enablePerPlacementLoad) {
 		DeviceLog.entered();
 
 		UnityAdsImplementation.addListener(listener);
 
-		UnityServices.initialize(activity, gameId, new IUnityServicesListener() {
+		UnityServices.initialize(context, application, gameId, new IUnityServicesListener() {
 			@Override
 			public void onUnityServicesError(UnityServices.UnityServicesError error, String message) {
 				if (error == UnityServices.UnityServicesError.INIT_SANITY_CHECK_FAIL) {

@@ -1,6 +1,8 @@
 package com.unity3d.services;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 
 import com.unity3d.services.core.configuration.Configuration;
@@ -27,6 +29,19 @@ public class UnityServices {
 	 * @param enablePerPlacementLoad If true, disables automatic requests, and allows the load() function to request placements instead
 	 */
 	public static void initialize(final Activity activity, final String gameId, final IUnityServicesListener listener, final boolean testMode, final boolean enablePerPlacementLoad) {
+		initialize(activity, activity.getApplication(), gameId, listener, testMode, enablePerPlacementLoad);
+	}
+
+	/**
+	 * Initializes Unity Ads. Unity Ads should be initialized when app starts.
+	 * @param context Current context
+	 * @param application Current application
+	 * @param gameId Unique identifier for a game, given by Unity Ads admin tools or Unity editor
+	 * @param listener Listener for IUnityAdsListener callbacks
+	 * @param testMode If true, only test ads are shown
+	 * @param enablePerPlacementLoad If true, disables automatic requests, and allows the load() function to request placements instead
+	 */
+	public static void initialize(final Context context, final Application application, final String gameId, final IUnityServicesListener listener, final boolean testMode, final boolean enablePerPlacementLoad) {
 		DeviceLog.entered();
 
 		// Allow init call only once. Configuration thread will take care of retries in case of network failures.
@@ -54,7 +69,7 @@ public class UnityServices {
 			return;
 		}
 
-		if(activity == null) {
+		if(context == null) {
 			DeviceLog.error("Error while initializing Unity Services: null activity, halting Unity Ads init");
 			if(listener != null) {
 				listener.onUnityServicesError(UnityServicesError.INVALID_ARGUMENT, "Null activity");
@@ -71,8 +86,8 @@ public class UnityServices {
 		SdkProperties.setDebugMode(SdkProperties.getDebugMode());
 		SdkProperties.setListener(listener);
 		ClientProperties.setGameId(gameId);
-		ClientProperties.setApplicationContext(activity.getApplicationContext());
-		ClientProperties.setApplication(activity.getApplication());
+		ClientProperties.setApplicationContext(context.getApplicationContext());
+		ClientProperties.setApplication(application);
 		SdkProperties.setPerPlacementLoadEnabled(enablePerPlacementLoad);
 		SdkProperties.setTestMode(testMode);
 
