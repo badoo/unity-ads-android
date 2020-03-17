@@ -1,6 +1,8 @@
 package com.unity3d.ads;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 
 import com.unity3d.services.UnityServices;
 import com.unity3d.services.ads.UnityAdsImplementation;
@@ -119,6 +121,23 @@ public final class UnityAds {
 	public static void initialize(final Activity activity, final String gameId, final boolean testMode) {
 		boolean usePerPlacementLoad = false;
 		UnityAdsImplementation.initialize(activity, gameId, null, testMode, usePerPlacementLoad);
+	}
+
+	/**
+	 * Initializes Unity Ads. Unity Ads should be initialized when app starts.
+	 * Note: The `load` API is in closed beta and available upon invite only. If you would like to be considered for the beta, please contact Unity Ads Support.
+	 *
+	 * @param context Current Android context
+	 * @param application Current Android app
+	 * @param gameId Unique identifier for a game, given by Unity Ads admin tools or Unity editor
+	 * @param listener Listener for IUnityAdsListener callbacks
+	 * @param testMode If true, only test ads are shown
+	 * @param enablePerPlacementLoad Set this flag to `YES` to disable automatic placement caching. When this is enabled, developer must call `load` on placements before calling show
+	 * @deprecated this method is deprecated in favor of {@link #initialize(Activity, String, boolean, boolean)} use {@link #addListener(IUnityAdsListener)} to add a listener
+	 */
+	@Deprecated
+	public static void initialize(final Context context, final Application application, final String gameId, final IUnityAdsListener listener, final boolean testMode, final boolean enablePerPlacementLoad) {
+		UnityAdsImplementation.initialize(context, application, gameId, listener, testMode, enablePerPlacementLoad);
 	}
 
 	/**
