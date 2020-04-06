@@ -196,6 +196,9 @@ public class BannerView extends RelativeLayout {
 	}
 
 	private void bridgeLoad() {
-		BannerBridge.load(this.placementId, this.viewId, this.size);
+		UnityBannerSize size = this.size;
+		if (size != null) {
+			BannerBridge.load(this.placementId, this.viewId, size);
+		}
 	}
 }
