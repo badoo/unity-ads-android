@@ -27,6 +27,8 @@ public class WebView extends android.webkit.WebView {
 			settings.setAllowUniversalAccessFromFileURLs(true);
 		}
 
+		settings.setAllowFileAccess(true);
+
 		if (Build.VERSION.SDK_INT >= 19) {
 			try {
 				_evaluateJavascript = android.webkit.WebView.class.getMethod("evaluateJavascript", String.class, ValueCallback.class);
