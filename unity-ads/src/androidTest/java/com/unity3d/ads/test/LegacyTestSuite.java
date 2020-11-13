@@ -14,7 +14,7 @@ import com.unity3d.ads.test.legacy.InvocationTest;
 import com.unity3d.ads.test.legacy.LifecycleListenerTest;
 import com.unity3d.ads.test.legacy.MetaDataTest;
 import com.unity3d.ads.test.legacy.NativeCallbackTest;
-import com.unity3d.ads.test.legacy.PackageManagerTest;
+import com.unity3d.ads.test.legacy.OpenAdvertisingIdentifierTest;
 import com.unity3d.ads.test.legacy.PlacementTest;
 import com.unity3d.ads.test.legacy.PreferencesTest;
 import com.unity3d.ads.test.legacy.PublicApiTest;
@@ -40,6 +40,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	AdUnitActivityTest.class,
 	AdvertisingIdentifierTest.class,
+	OpenAdvertisingIdentifierTest.class,
 	BroadcastTest.class,
 	CacheTest.class,
 	ClientPropertiesTest.class,
@@ -52,7 +53,6 @@ import org.junit.runners.Suite;
 	InvocationTest.class,
 	MetaDataTest.class,
 	NativeCallbackTest.class,
-	PackageManagerTest.class,
 	PlacementTest.class,
 	PublicApiTest.class,
 	RequestTest.class,
